@@ -7,6 +7,9 @@ function _id(el){
 function Marr(numArray) {
   return Math.max.apply(null, numArray);
 }
+function Minn(numArray){
+    return Math.min.apply(Math, numArray);
+}
 var val = {
     middle: 0
 }
@@ -72,6 +75,15 @@ for(var i = 0; i < w/(w/90); i++){
     };
     finish = true;
     function opti(nums){
+        var min = Minn(nums)
+            if(min < 0){
+                min = Number(min)
+                min = min*(-1)
+                for(var n = 0; n < nums.length; n++){
+                    nums[n] = Number(nums[n])
+                    nums[n] = min+nums[n]
+                }
+            }
         var max = Marr(nums)
             var maxL = Math.floor(max).toString().length;
             var hl = h.toString().length;
@@ -136,34 +148,4 @@ for(var i = 0; i < w/(w/90); i++){
         mo.innerHTML = '';
         build(numbers, 'grap', 'grap', false);
     };
-    function equ(){
-               if(status == 0){
-        mo = _id('mo');
-        gra = _id('grap');
-        gra.addEventListener('mousemove', function(){mouse1(event);});
-        gra.addEventListener('mouseout', function(){mouse2(event);});
-        status = 1;
-    }
-    numbers = showN = _id('numbers').value.split(' ');
-        for(var p = 0; p < 250; p++){
-            numbers.push(p*p)
-        }
-    // for(var y = 0; y < numbers.length; y++){
-    //             if(numbers[y] > 0){
-    //                 meanOf.positive = true;
-    //             }else{
-    //                 meanOf.negative = true;
-    //             };
-    //             if(meanOf.positive == true || meanOf.negative == true){
-    //                 break;
-    //             };
-    //         };
-    //         if(meanOf.positive == false || meanOf.negative == true){
-    //             for(var o = 0; o < numbers.length; o++){
-    //                 numbers[o] = numbers[o]*(-1);
-    //             }
-    //         }
-    finish = false;
-    console.log(numbers)
-        build(numbers, 'grap', 'grap', false);
-    };
+ 
