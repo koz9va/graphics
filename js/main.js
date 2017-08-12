@@ -17,7 +17,7 @@ var mo = 0;
 var gra = 0;
 var wid = 0;
 var showN = null;
-var canvas,ctx,father,w,h,opts,numbers,hLayer, numArray, maxH, ten;
+var canvas,ctx,father,w,h,opts,numbers,hLayer, numArray, maxH, ten, maxL, hl, n, min;
 var meanOf = {
     positive: false,
     negative: false,
@@ -75,7 +75,7 @@ for(var i = 0; i < w/(w/90); i++){
     };
     finish = true;
     function opti(nums){
-        var min = Minn(nums)
+        min = Minn(nums)
             if(min < 0){
                 min = Number(min)
                 min = min*(-1)
@@ -83,11 +83,12 @@ for(var i = 0; i < w/(w/90); i++){
                     nums[n] = Number(nums[n])
                     nums[n] = min+nums[n]
                 }
+                min = min*(-1)
             }
         var max = Marr(nums)
-            var maxL = Math.floor(max).toString().length;
-            var hl = h.toString().length;
-            var n = -(maxL-hl);
+            maxL = Math.floor(max).toString().length;
+            hl = h.toString().length;
+            n = -(maxL-hl);
             ten = Math.pow(10 ,n);
             maxH = h/(max*ten);   
             for(var l = 0; l < nums.length; l++){
@@ -105,21 +106,6 @@ for(var i = 0; i < w/(w/90); i++){
         status = 1;
     }
     numbers = showN = _id(form).value.split(' ');
-    for(var y = 0; y < numbers.length; y++){
-                if(numbers[y] > 0){
-                    meanOf.positive = true;
-                }else{
-                    meanOf.negative = true;
-                };
-                if(meanOf.positive == true || meanOf.negative == true){
-                    break;
-                };
-            };
-            if(meanOf.positive == false || meanOf.negative == true){
-                for(var o = 0; o < numbers.length; o++){
-                    numbers[o] = numbers[o]*(-1);
-                }
-            }
     finish = false;
         build(numbers, 'grap', 'grap', false);
     };
@@ -128,17 +114,21 @@ for(var i = 0; i < w/(w/90); i++){
         for(var hj = 0; hj < h; hj++){
             var pixel = ctx.getImageData(e.layerX, hj, 1, 1);
             if(pixel.data[1] != 255 && pixel.data[1] != 255 && pixel.data[1] != 255){
-                if(meanOf.positive == true || meanOf.negative == false){
+                if(min < 0){
+                    hLayer = (((h-hj)/ten)/maxH)+min
+                }else{
                     hLayer = ((h-hj)/ten)/maxH;
-                }; 
-                if(meanOf.positive == false || meanOf.negative == true){
-                    hLayer = -(((h-hj)/ten)/maxH);
                 }
-                
+                ctx.beginPath();
+                ctx.moveTo(0,h/2);
+                ctx.lineTo(w,h/2);
+                ctx.closePath();
+                ctx.stroke();
                 break;
             }
         }
         mo.innerHTML = 'X '+e.layerX+'Y '+hLayer;
+        ctx.beginPath();
         ctx.moveTo(e.layerX,0);
         ctx.lineTo(e.layerX,h);
         ctx.closePath();
@@ -147,5 +137,20 @@ for(var i = 0; i < w/(w/90); i++){
     function mouse2(){
         mo.innerHTML = '';
         build(numbers, 'grap', 'grap', false);
+            if(min < 0){
+                ctx.beginPath();
+                ctx.moveTo(0,((min*(-1))/ten)/maxH)
+                ctx.lineTo(w, ((min*(-1))/ten)/maxH)
+                ctx.closePath();
+                ctx.stroke();
+            }else{
+                ctx.beginPath();
+                ctx.moveTo(0,h/2);
+                ctx.lineTo(w,h/2);
+                ctx.closePath();
+                ctx.stroke();
+            }
+        
+        
     };
  
