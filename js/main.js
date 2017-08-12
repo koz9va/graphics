@@ -18,10 +18,6 @@ var gra = 0;
 var wid = 0;
 var showN = null;
 var canvas,ctx,father,w,h,opts,numbers,hLayer, numArray, maxH, ten, maxL, hl, n, min;
-var meanOf = {
-    positive: false,
-    negative: false,
-            };
 var status = 0;
 var finish = false;
 function build(nums, idCan, fatherCan, cellule){
