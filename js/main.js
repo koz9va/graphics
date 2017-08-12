@@ -150,3 +150,24 @@ for(var i = 0; i < w/(w/90); i++){
         
     };
  
+
+
+
+
+
+
+
+
+ function Polski(equ){
+    var kiv = [];
+    var mosk = [];
+    var qarr = equ.split(' ');
+    qarr.push('|')
+    for(var i = 0; i < qarr.length; i++){
+        if(qarr[i] - qarr[i] == 0){
+            kiv.push(Number(qarr[i]))
+            continue
+        }
+       
+    }
+ }
